@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiara Azzahra - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Playfair+Display:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary-bg: #fef6f0;
+      --secondary-bg: #ffffff;
+      --accent-gold: #e67e50;
+      --text-primary: #2d3436;
+      --text-secondary: #636e72;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #e67e50 0%, #d63031 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(230, 126, 80, 0.1);
+      box-shadow: 0 2px 10px rgba(230, 126, 80, 0.1);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-in forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .slide-up {
+      animation: slideUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(230, 126, 80, 0.2);
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background: rgba(230, 126, 80, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #e67e50, #d63031);
+      border-radius: 10px;
+      animation: skillLoad 1.5s ease-out forwards;
+      transform-origin: left;
+    }
+    
+    @keyframes skillLoad {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .profile-img-frame {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #e67e50, #d63031);
+      box-shadow: 0 10px 30px rgba(230, 126, 80, 0.3);
+    }
+    
+    .profile-img-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--secondary-bg);
+      border: 4px solid var(--primary-bg);
+    }
+    
+    .profile-img-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      border: 3px solid var(--primary-bg);
+      z-index: 2;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 24px;
+      width: 2px;
+      height: calc(100% + 30px);
+      background: rgba(230, 126, 80, 0.2);
+    }
+    
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .skills-tab-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .skills-tab-btn.active {
+      background: var(--accent-gold);
+      color: #ffffff;
+      border-color: var(--accent-gold);
+    }
+
+    .skills-tab-btn:hover:not(.active) {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .skills-content {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #e67e50, #d63031);
+      color: #ffffff;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(230, 126, 80, 0.4);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-gold);
+      border: 2px solid var(--accent-gold);
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--accent-gold);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    
+    .section-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 18px;
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 36px;
+      }
+      
+      .profile-img-frame {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- Header/Navigation -->
+   <header class="glass-effect fixed w-full top-0 fade-in" style="z-index: 100;">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+     <div id="site-name" class="text-2xl font-bold gradient-text">
+      Tiara Azzahra
+     </div>
+     <ul class="hidden md:flex gap-8">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+     </ul><button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden glass-effect">
+     <ul class="flex flex-col gap-4 px-6 py-4">
+      <li><a href="#home" class="block py-2 nav-link">Home</a></li>
+      <li><a href="#about" class="block py-2 nav-link">About</a></li>
+      <li><a href="#skills" class="block py-2 nav-link">Skills</a></li>
+      <li><a href="#portfolio" class="block py-2 nav-link">Portfolio</a></li>
+      <li><a href="#contact" class="block py-2 nav-link">Contact</a></li>
+     </ul>
+    </div>
+   </header><!-- Hero Section -->
+   <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-24">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+     <div class="slide-up" style="animation-delay: 0.2s;">
+      <p id="hero-greeting" class="text-xl text-[var(--text-secondary)] mb-2">Halo, Saya</p>
+      <h1 id="hero-name" class="text-5xl md:text-6xl font-bold gradient-text mb-4">Tiara Azzahra</h1>
+      <p id="hero-description" class="text-lg text-[var(--text-secondary)] mb-8 leading-relaxed">Seorang siswa yang adaptif dan solutif, berfokus pada pengembangan keterampilan interpersonal untuk persiapan masa depan.</p>
+      <div class="flex flex-wrap gap-4"><a href="#portfolio" id="cta-portfolio" class="btn-primary">Lihat Portofolio</a> <a href="#contact" id="cta-contact" class="btn-secondary">Hubungi Saya</a>
+      </div>
+     </div>
+     <div class="slide-up flex justify-center" style="animation-delay: 0.4s;">
+      <div class="profile-img-frame">
+       <div class="profile-img-inner"><img src="https://iili.io/ftpReRI.jpg" alt="Tiara Azzahra" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a1333, #0f0a1e)'; this.alt='Foto tidak tersedia';">
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+     <h2 id="about-title" class="section-title gradient-text slide-up">Tentang Saya</h2>
+     <p class="section-subtitle slide-up" style="animation-delay: 0.1s;">Kenali lebih dalam tentang perjalanan dan visi saya</p>
+     <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.2s;">
+       <h3 class="text-2xl font-semibold mb-4 text-[var(--accent-gold)]">Latar Belakang</h3>
+       <p class="text-[var(--text-secondary)] leading-relaxed">Saya Tiara, seorang siswi SMAN 1 Subang yang lahir di Jakarta pada 06 Juni 2008. Sebagai individu antusias dalam mengasah bakat di bidang komunikasi dan hubungan antarmanusia. Melalui keterlibatan aktif dalam berbagai kegiatan sekolah, saya berkomitmen untuk terus mengembangkan kemampuan kolaborasi dan berpikir kritis demi memberikan kontribusi positif bagi lingkungan sekitar.</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.3s;">
+       <h3 class="text-2xl font-semibold mb-4 text-[var(--accent-gold)]">Minat &amp; Tujuan</h3>
+       <p class="text-[var(--text-secondary)] leading-relaxed">Saya sangat tertarik pada eksplorasi potensi diri dan pengembangan keterampilan interpersonal. Tujuan saya adalah memanfaatkan setiap kesempatan belajar untuk memperluas wawasan, baik di bidang akademik maupun non-akademik. Saya bertekad untuk menjalin kolaborasi yang produktif dengan berbagai pihak guna mengasah kreativitas dan membangun fondasi karier yang solid di masa depan.</p>
+      </div>
+     </div><!-- Education Timeline -->
+     <div class="mt-16 slide-up" style="animation-delay: 0.4s;">
+      <h3 class="text-3xl font-semibold mb-8 text-center gradient-text">Pendidikan</h3>
+      <div class="glass-effect rounded-3xl p-8 max-w-3xl mx-auto">
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SMAN 1 Subang</h4>
+        <p class="text-[var(--text-secondary)]">2023 - Sekarang</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SMP 1 Subang</h4>
+        <p class="text-[var(--text-secondary)]">2020 - 2023</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SD Cigadog</h4>
+        <p class="text-[var(--text-secondary)]">2014 - 2020</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">TK Kartika X-8</h4>
+        <p class="text-[var(--text-secondary)]">2012 - 2014</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">PAUD Bungur 1</h4>
+        <p class="text-[var(--text-secondary)]">2011 - 2012</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills Section -->
+   <section id="skills" class="py-24 px-6 bg-[var(--secondary-bg)]">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Keahlian</h2><!-- Skills Tab Navigation -->
+     <div class="flex justify-center gap-4 mb-12 slide-up" style="animation-delay: 0.2s;"><button id="soft-skills-tab" class="skills-tab-btn active px-8 py-3 rounded-full font-semibold transition-all"> Soft Skills </button> <button id="hard-skills-tab" class="skills-tab-btn px-8 py-3 rounded-full font-semibold transition-all"> Hard Skills </button>
+     </div><!-- Soft Skills Content -->
+     <div id="soft-skills-content" class="skills-content">
+      <div class="grid md:grid-cols-2 gap-8">
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.3s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">💬</span>
+         <h3 class="text-xl font-semibold">Komunikasi</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Kemampuan menyampaikan ide dengan jelas dan persuasif</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 90%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">90%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🤝</span>
+         <h3 class="text-xl font-semibold">Kerja Tim</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Kolaborasi efektif dalam mencapai tujuan bersama</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 85%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">85%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.5s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">💡</span>
+         <h3 class="text-xl font-semibold">Kreativitas</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Berpikir inovatif dan mencari solusi kreatif</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 88%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">88%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.6s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">⏰</span>
+         <h3 class="text-xl font-semibold">Manajemen Waktu</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Mengatur prioritas dan deadline dengan efisien</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 82%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">82%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.7s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎯</span>
+         <h3 class="text-xl font-semibold">Kepemimpinan</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Memimpin dan menginspirasi tim dengan visi jelas</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 80%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">80%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.8s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🧠</span>
+         <h3 class="text-xl font-semibold">Problem Solving</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Menganalisis masalah dan menemukan solusi tepat</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 86%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">86%</p>
+       </div>
+      </div>
+     </div><!-- Hard Skills Content -->
+     <div id="hard-skills-content" class="skills-content hidden">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.3s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📊</span>
+         <h3 class="text-xl font-semibold">Microsoft Office</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Word, Excel, PowerPoint</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 85%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">85%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎨</span>
+         <h3 class="text-xl font-semibold">Design Tools</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Canva, Adobe Photoshop</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 78%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">78%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.5s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📝</span>
+         <h3 class="text-xl font-semibold">Content Writing</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Artikel, Essay, Puisi</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 82%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">82%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.6s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📱</span>
+         <h3 class="text-xl font-semibold">Social Media Management</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Instagram, TikTok, LinkedIn</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 80%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">80%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.7s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📄</span>
+         <h3 class="text-xl font-semibold">Pengolahan Dokumen</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Manajemen &amp; format dokumen digital</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 87%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">87%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.8s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📚</span>
+         <h3 class="text-xl font-semibold">Research &amp; Analysis</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Riset akademik &amp; analisis data</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 79%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">79%</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Portfolio/Achievements Section -->
+   <section id="portfolio" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Pengalaman &amp; Prestasi</h2>
+     <div class="grid md:grid-cols-3 gap-8">
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.2s;">
+       <div class="text-5xl mb-4">
+        🏆
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara 2 Cerdas Cermat</h3>
+       <p class="text-[var(--text-secondary)]">Tingkat Sekolah Dasar</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.3s;">
+       <div class="text-5xl mb-4">
+        🥇
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara 1 Lomba Tingkat II Penggalang</h3>
+       <p class="text-[var(--text-secondary)]">SMP - Pramuka</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.4s;">
+       <div class="text-5xl mb-4">
+        👑
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara Umum Pramuka Siaga</h3>
+       <p class="text-[var(--text-secondary)]">Kompetisi Pramuka</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.5s;">
+       <div class="text-5xl mb-4">
+        📋
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Sekretaris Organisasi Pramuka</h3>
+       <p class="text-[var(--text-secondary)]">Kepemimpinan &amp; Administrasi</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.6s;">
+       <div class="text-5xl mb-4">
+        📝
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Lomba Puisi</h3>
+       <p class="text-[var(--text-secondary)]">Tingkat Sekolah Dasar</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.7s;">
+       <div class="text-5xl mb-4">
+        🎓
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Siswa Eligible</h3>
+       <p class="text-[var(--text-secondary)]">Program Keunggulan Akademik</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-24 px-6 bg-[var(--secondary-bg)]">
+    <div class="max-w-3xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Hubungi Saya</h2>
+     <p class="section-subtitle slide-up" style="animation-delay: 0.1s;">Mari terhubung dan berkolaborasi</p>
+     <div class="glass-effect rounded-3xl p-8 slide-up" style="animation-delay: 0.2s;">
+      <form id="contact-form" class="space-y-6">
+       <div><label for="name" class="block text-sm font-medium mb-2">Nama</label> <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all">
+       </div>
+       <div><label for="email" class="block text-sm font-medium mb-2">Email</label> <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all">
+       </div>
+       <div><label for="message" class="block text-sm font-medium mb-2">Pesan</label> <textarea id="message" required rows="5" class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all resize-none"></textarea>
+       </div><button type="submit" class="btn-primary w-full" id="submit-btn">Kirim Pesan</button>
+      </form>
+      <div class="mt-8 pt-8 border-t border-[var(--accent-gold)] border-opacity-30">
+       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center"><a href="mailto:tiearazzahra@gmail.com" class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors"> <span class="text-2xl">📧</span> <span>tiearazzahra@gmail.com</span> </a> <a href="https://instagram.com/tiaraisza" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors"> <span>@tiaraisza</span>
+         <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+         </svg></a>
+       </div>
+      </div>
+     </div>
+     <div id="success-message" class="hidden mt-6 p-4 bg-green-500 bg-opacity-20 border border-green-500 rounded-xl text-center">
+      <p>✅ Pesan Anda berhasil terkirim!</p>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-6 border-t border-[var(--accent-gold)] border-opacity-20">
+    <div class="max-w-7xl mx-auto text-center">
+     <p id="footer-copyright" class="text-[var(--text-secondary)]">©️ 2026 - Tiara Azzahra Dianto. All Rights Reserved.</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      site_name: "Tiara Azzahra",
+      hero_greeting: "Halo, Saya",
+      hero_name: "Tiara Azzahra",
+      hero_description: "Seorang siswa yang adaptif dan solutif, berfokus pada pengembangan keterampilan interpersonal untuk persiapan masa depan.",
+      cta_portfolio: "Lihat Portofolio",
+      cta_contact: "Hubungi Saya",
+      about_title: "Tentang Saya",
+      footer_copyright: "©️ 2026 - Tiara Azzahra Dianto. All Rights Reserved.",
+      primary_bg: "#fef6f0",
+      secondary_bg: "#ffffff",
+      accent_gold: "#e67e50",
+      text_primary: "#2d3436",
+      text_secondary: "#636e72"
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('site-name').textContent = config.site_name || defaultConfig.site_name;
+      document.getElementById('hero-greeting').textContent = config.hero_greeting || defaultConfig.hero_greeting;
+      document.getElementById('hero-name').textContent = config.hero_name || defaultConfig.hero_name;
+      document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+      document.getElementById('cta-portfolio').textContent = config.cta_portfolio || defaultConfig.cta_portfolio;
+      document.getElementById('cta-contact').textContent = config.cta_contact || defaultConfig.cta_contact;
+      document.getElementById('about-title').textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById('footer-copyright').textContent = config.footer_copyright || defaultConfig.footer_copyright;
+
+      const root = document.documentElement;
+      root.style.setProperty('--primary-bg', config.primary_bg || defaultConfig.primary_bg);
+      root.style.setProperty('--secondary-bg', config.secondary_bg || defaultConfig.secondary_bg);
+      root.style.setProperty('--accent-gold', config.accent_gold || defaultConfig.accent_gold);
+      root.style.setProperty('--text-primary', config.text_primary || defaultConfig.text_primary);
+      root.style.setProperty('--text-secondary', config.text_secondary || defaultConfig.text_secondary);
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.primary_bg || defaultConfig.primary_bg,
+            set: (value) => {
+              config.primary_bg = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_bg: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_bg || defaultConfig.secondary_bg,
+            set: (value) => {
+              config.secondary_bg = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_bg: value });
+              }
+            }
+          },
+          {
+            get: () => config.accent_gold || defaultConfig.accent_gold,
+            set: (value) => {
+              config.accent_gold = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ accent_gold: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_primary || defaultConfig.text_primary,
+            set: (value) => {
+              config.text_primary = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_primary: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_secondary || defaultConfig.text_secondary,
+            set: (value) => {
+              config.text_secondary = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_secondary: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["site_name", config.site_name || defaultConfig.site_name],
+        ["hero_greeting", config.hero_greeting || defaultConfig.hero_greeting],
+        ["hero_name", config.hero_name || defaultConfig.hero_name],
+        ["hero_description", config.hero_description || defaultConfig.hero_description],
+        ["cta_portfolio", config.cta_portfolio || defaultConfig.cta_portfolio],
+        ["cta_contact", config.cta_contact || defaultConfig.cta_contact],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["footer_copyright", config.footer_copyright || defaultConfig.footer_copyright]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Contact Form Handler
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-message');
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim...';
+      
+      setTimeout(() => {
+        successMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirim Pesan';
+        
+        document.getElementById('contact-form').reset();
+        
+        setTimeout(() => {
+          successMsg.classList.add('hidden');
+        }, 5000);
+      }, 1000);
+    });
+
+    // Skills Tab Functionality
+    const softSkillsTab = document.getElementById('soft-skills-tab');
+    const hardSkillsTab = document.getElementById('hard-skills-tab');
+    const softSkillsContent = document.getElementById('soft-skills-content');
+    const hardSkillsContent = document.getElementById('hard-skills-content');
+
+    softSkillsTab.addEventListener('click', function() {
+      softSkillsTab.classList.add('active');
+      hardSkillsTab.classList.remove('active');
+      softSkillsContent.classList.remove('hidden');
+      hardSkillsContent.classList.add('hidden');
+    });
+
+    hardSkillsTab.addEventListener('click', function() {
+      hardSkillsTab.classList.add('active');
+      softSkillsTab.classList.remove('active');
+      hardSkillsContent.classList.remove('hidden');
+      softSkillsContent.classList.add('hidden');
+    });
+
+    // Intersection Observer for Animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.slide-up').forEach(el => {
+      observer.observe(el);
+    });
+
+
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c8b237d0082b907',t:'MTc3MDIxODI4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
