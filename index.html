@@ -1,694 +1,782 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northern Italy — Destinasi Premium Minimalis</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Konfigurasi Tailwind untuk Font Inter dan Palet Warna Premium -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#003366', // Deep Navy Blue (Premium)
-                        'accent': '#B8860B', // Dark Gold/Bronze
-                        'bg-light': '#F8F8F8', // Off-White
-                        'text-dark': '#333333',
-                        'bg-dark': '#1C1C1C', // Dark Charcoal
-                        'text-light': '#E0E0E0',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    // Animasi untuk simulasi scroll/reveal
-                    animation: {
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
-                    },
-                    keyframes: {
-                        slideUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Gaya dasar untuk Dark/Light Mode */
-        .light {
-            background-color: theme('colors.bg-light');
-            color: theme('colors.text-dark');
-        }
-        .dark {
-            background-color: theme('colors.bg-dark');
-            color: theme('colors.text-light');
-        }
-        /* Sidebar tetap tersembunyi secara default, hanya muncul di mobile */
-        #sidebar-menu {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%);
-        }
-        #sidebar-menu.active {
-            transform: translateX(0);
-        }
-        /* Styling untuk Parallax/Video Background (Simulasi) */
-        .hero-bg {
-            background-image: url('https://placehold.co/1920x1080/003366/FFFFFF?text=Pemandangan+Danau+Como');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Efek Parallax */
-            height: 80vh;
-        }
-    </style>
-</head>
-<body class="light font-sans transition-colors duration-500" x-data="{ isMenuOpen: false }">
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiara Azzahra - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Playfair+Display:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary-bg: #fef6f0;
+      --secondary-bg: #ffffff;
+      --accent-gold: #e67e50;
+      --text-primary: #2d3436;
+      --text-secondary: #636e72;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #e67e50 0%, #d63031 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(230, 126, 80, 0.1);
+      box-shadow: 0 2px 10px rgba(230, 126, 80, 0.1);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-in forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .slide-up {
+      animation: slideUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(230, 126, 80, 0.2);
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background: rgba(230, 126, 80, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #e67e50, #d63031);
+      border-radius: 10px;
+      animation: skillLoad 1.5s ease-out forwards;
+      transform-origin: left;
+    }
+    
+    @keyframes skillLoad {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .profile-img-frame {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #e67e50, #d63031);
+      box-shadow: 0 10px 30px rgba(230, 126, 80, 0.3);
+    }
+    
+    .profile-img-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--secondary-bg);
+      border: 4px solid var(--primary-bg);
+    }
+    
+    .profile-img-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      border: 3px solid var(--primary-bg);
+      z-index: 2;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 24px;
+      width: 2px;
+      height: calc(100% + 30px);
+      background: rgba(230, 126, 80, 0.2);
+    }
+    
+    .timeline-item:last-child::after {
+      display: none;
+    }
 
-    <!-- 1.a & 1.g: Header / Navbar (Navigasi Utama & Responsif) -->
-    <header class="sticky top-0 z-40 shadow-lg backdrop-blur-md bg-opacity-80 dark:bg-opacity-80 transition-all duration-300 dark:bg-bg-dark bg-bg-light">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Logo Brand -->
-            <a href="#" class="text-2xl font-bold tracking-wider text-primary dark:text-accent">Northern Italia</a>
+    .skills-tab-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
 
-            <!-- Navigasi Desktop -->
-            <div class="hidden lg:flex space-x-8 items-center">
-                <a href="#destinasi" class="nav-link">Destinasi</a>
-                <a href="#galeri" class="nav-link">Galeri</a>
-                <a href="#reservasi" class="nav-link">Reservasi</a>
-                <a href="#blog" class="nav-link">Blog</a>
-                <a href="#kontak" class="nav-link">Kontak</a>
+    .skills-tab-btn.active {
+      background: var(--accent-gold);
+      color: #ffffff;
+      border-color: var(--accent-gold);
+    }
 
-                <!-- 1.e: Search Bar Desktop -->
-                <div class="relative">
-                    <input type="text" placeholder="Cari..." class="py-1 px-3 border border-gray-300 dark:border-gray-700 rounded-full text-sm dark:bg-bg-dark bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent transition duration-300">
-                    <button class="absolute right-0 top-0 mt-1 mr-2 text-gray-500 dark:text-gray-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
-                </div>
-            </div>
+    .skills-tab-btn:hover:not(.active) {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
 
-            <!-- Kontrol Aksi: Dark/Light & Bahasa -->
-            <div class="flex items-center space-x-4">
-                <!-- 2.d & 3.m: Multibahasa (Language Switcher) -->
-                <button id="lang-switcher" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300 text-sm font-medium border border-primary dark:border-accent dark:text-accent text-primary">ID/EN</button>
-
-                <!-- 2.a & 3.p: Dark / Light Mode Toggle -->
-                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300">
-                    <!-- Icon Light Mode (Sun) -->
-                    <svg id="sun-icon" class="w-6 h-6 hidden text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9c0-.62-.1-1.22-.29-1.78a.99.99 0 00-1.88.58 7 7 0 11-7.85 7.85c-.3-.8-.47-1.66-.47-2.57 0-4.96 4.04-9 9-9z"></path></svg>
-                    <!-- Icon Dark Mode (Moon) -->
-                    <svg id="moon-icon" class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M20 15a8 8 0 11-8-8c0 4.41 3.59 8 8 8zM2 12a10 10 0 1020 0 10 10 0 00-20 0z"></path></svg>
-                </button>
-
-                <!-- Tombol Menu Mobile -->
-                <button id="menu-toggle" class="lg:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition duration-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- 1.d: Sidebar (Mobile) -->
-    <div id="sidebar-menu" class="fixed top-0 right-0 h-full w-64 bg-bg-light dark:bg-gray-900 shadow-2xl z-50 p-6 lg:hidden flex flex-col items-start space-y-4">
-        <button id="close-menu" class="absolute top-4 right-4 p-2 text-primary dark:text-text-light">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <h3 class="text-lg font-bold mb-4 mt-8 text-primary dark:text-accent">Menu</h3>
-        <a href="#destinasi" class="sidebar-link">Destinasi</a>
-        <a href="#galeri" class="sidebar-link">Galeri</a>
-        <a href="#reservasi" class="sidebar-link">Reservasi</a>
-        <a href="#blog" class="sidebar-link">Blog</a>
-        <a href="#kontak" class="sidebar-link">Kontak</a>
-        <hr class="w-full border-gray-300 dark:border-gray-700 my-4">
-        <!-- 1.e: Search Bar Mobile -->
-        <input type="text" placeholder="Cari..." class="w-full py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-lg text-sm dark:bg-bg-dark bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent transition duration-300">
+    .skills-content {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #e67e50, #d63031);
+      color: #ffffff;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(230, 126, 80, 0.4);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-gold);
+      border: 2px solid var(--accent-gold);
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--accent-gold);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    
+    .section-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 18px;
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 36px;
+      }
+      
+      .profile-img-frame {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- Header/Navigation -->
+   <header class="glass-effect fixed w-full top-0 fade-in" style="z-index: 100;">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+     <div id="site-name" class="text-2xl font-bold gradient-text">
+      Tiara Azzahra
+     </div>
+     <ul class="hidden md:flex gap-8">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+     </ul><button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden glass-effect">
+     <ul class="flex flex-col gap-4 px-6 py-4">
+      <li><a href="#home" class="block py-2 nav-link">Home</a></li>
+      <li><a href="#about" class="block py-2 nav-link">About</a></li>
+      <li><a href="#skills" class="block py-2 nav-link">Skills</a></li>
+      <li><a href="#portfolio" class="block py-2 nav-link">Portfolio</a></li>
+      <li><a href="#contact" class="block py-2 nav-link">Contact</a></li>
+     </ul>
     </div>
-
-
-    <!-- 1.b & 2.i: Hero Section (Bagian Utama Atas dengan Simulasi Video Background) -->
-    <section id="hero" class="hero-bg flex items-center justify-center text-center p-12 lg:p-24 relative overflow-hidden">
-        <!-- Overlay untuk Kontras Teks -->
-        <div class="absolute inset-0 bg-primary opacity-60 dark:opacity-70"></div>
-        <div class="relative z-10">
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-bg-light mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                Pesona Abadi Northern Italia
-            </h1>
-            <p class="text-xl sm:text-2xl text-text-light mb-10 max-w-4xl mx-auto animate-slide-up" style="animation-delay: 0.3s;">
-                Temukan keindahan Danau Como, pegunungan Dolomiti, dan budaya kaya Milan dalam sentuhan premium.
-            </p>
-            <button class="btn-primary animate-slide-up" style="animation-delay: 0.5s;" onclick="openVirtualTour()">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.55 4.55a.5.5 0 01-.35.85H5.8a.5.5 0 01-.35-.85L10 10m5 0v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7l5-5z"></path></svg>
-                Virtual Tour 360°
-            </button>
-        </div>
-    </section>
-
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-
-        <!-- 3.g: Artikel / Blog Wisata (Bagian Sidebar/Konten Samping) -->
-        <div class="lg:flex lg:space-x-12">
-            <div class="lg:w-3/4">
-
-                <!-- 3.a: Deskripsi Destinasi Utama -->
-                <section id="destinasi" class="mb-20 animate-on-scroll">
-                    <h2 class="section-title">Destinasi Unggulan</h2>
-                    <p class="mb-10 max-w-3xl text-lg dark:text-gray-300">Northern Italy adalah perpaduan sempurna antara kemegahan alam dan warisan budaya. Jelajahi ikon-ikon utama kami.</p>
-
-                    <!-- Kartu Destinasi (3.a, 3.n) -->
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="https://placehold.co/600x400/003366/FFFFFF?text=Dolomiti" alt="Dolomiti" class="w-full h-48 object-cover rounded-lg mb-4">
-                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Dolomiti</h3>
-                            <p class="text-sm dark:text-gray-400 mb-4">Puncak-puncak batu kapur yang menakjubkan, sempurna untuk hiking dan ski. Keindahan alami yang tak tertandingi.</p>
-                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
-                                Detail & Tiket
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                            <div class="mt-4 flex space-x-2">
-                                <span class="share-icon">FB</span>
-                                <span class="share-icon">IG</span>
-                            </div>
-                        </div>
-                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="https://placehold.co/600x400/B8860B/003366?text=Milan" alt="Milan" class="w-full h-48 object-cover rounded-lg mb-4">
-                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Milan</h3>
-                            <p class="text-sm dark:text-gray-400 mb-4">Pusat mode dan desain Italia. Jelajahi Duomo yang megah dan galeri seni kelas dunia.</p>
-                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
-                                Detail & Tiket
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                            <div class="mt-4 flex space-x-2">
-                                <span class="share-icon">FB</span>
-                                <span class="share-icon">IG</span>
-                            </div>
-                        </div>
-                        <div class="bg-bg-light dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <img src="https://placehold.co/600x400/003366/FFFFFF?text=Venice" alt="Venice" class="w-full h-48 object-cover rounded-lg mb-4">
-                            <h3 class="text-xl font-semibold mb-2 text-primary dark:text-accent">Venesia</h3>
-                            <p class="text-sm dark:text-gray-400 mb-4">Kota kanal romantis yang unik. Nikmati gondola dan sejarah yang tak terhitung.</p>
-                            <a href="#" class="text-accent hover:text-primary dark:hover:text-bg-light transition-colors duration-300 font-medium text-sm inline-flex items-center">
-                                Detail & Tiket
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                            <div class="mt-4 flex space-x-2">
-                                <span class="share-icon">FB</span>
-                                <span class="share-icon">IG</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3.j: Filter Destinasi Berdasarkan Kategori -->
-                    <div class="mt-12">
-                        <h4 class="text-lg font-medium mb-3 dark:text-gray-200">Filter Berdasarkan Kategori:</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <button class="filter-btn">Pegunungan</button>
-                            <button class="filter-btn">Kota</button>
-                            <button class="filter-btn">Danau & Air</button>
-                            <button class="filter-btn">Sejarah & Seni</button>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3.b & 3.i: Galeri Foto / Video & Virtual Tour -->
-                <section id="galeri" class="mb-20 animate-on-scroll">
-                    <h2 class="section-title">Galeri Keindahan Northern Italia</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <img src="https://placehold.co/300x300/333333/FFFFFF?text=Foto+1" class="gallery-img" alt="Foto Italia Utara 1">
-                        <img src="https://placehold.co/300x300/B8860B/FFFFFF?text=Foto+2" class="gallery-img" alt="Foto Italia Utara 2">
-                        <img src="https://placehold.co/300x300/003366/FFFFFF?text=Foto+3" class="gallery-img" alt="Foto Italia Utara 3">
-                        <img src="https://placehold.co/300x300/1C1C1C/FFFFFF?text=Foto+4" class="gallery-img" alt="Foto Italia Utara 4">
-                    </div>
-                    <div class="text-center mt-8">
-                        <button class="btn-secondary" onclick="openVirtualTour()">
-                            Tonton Virtual Tour (360°)
-                        </button>
-                    </div>
-                </section>
-
-                <!-- 3.c, 3.d, 3.h: Tiket, Jadwal, Fasilitas & Reservasi -->
-                <section id="reservasi" class="mb-20 bg-primary/5 dark:bg-gray-800 p-8 rounded-xl shadow-lg animate-on-scroll">
-                    <h2 class="section-title text-primary dark:text-accent">Pemesanan & Layanan</h2>
-                    <div class="lg:flex lg:space-x-8">
-                        <!-- Informasi Tiket & Fasilitas (3.c, 3.d) -->
-                        <div class="lg:w-1/2 mb-8 lg:mb-0">
-                            <h3 class="text-2xl font-semibold mb-4 dark:text-gray-100">Jadwal & Fasilitas Kunjungan</h3>
-                            <p class="mb-4">Jam Buka: 09:00 - 18:00 (Setiap Hari)</p>
-                            <ul class="list-disc list-inside space-y-2 dark:text-gray-300">
-                                <li>Tiket Dewasa Mulai dari €25</li>
-                                <li>Gratis Parkir Premium</li>
-                                <li>Akses Wi-Fi Kecepatan Tinggi</li>
-                                <li>Pemandu Wisata Multibahasa</li>
-                                <li>Area Istirahat Eksklusif</li>
-                            </ul>
-                            <!-- 3.l: Cuaca & Kondisi Terkini Widget Placeholder -->
-                            <div class="mt-6 p-4 bg-accent/10 dark:bg-accent/20 rounded-lg text-sm">
-                                <p class="font-medium text-accent">Cuaca Terkini: <span id="current-weather">21°C, Cerah.</span></p>
-                                <p class="text-xs dark:text-gray-400">Kondisi: Normal. Tidak ada penundaan jadwal.</p>
-                            </div>
-                        </div>
-
-                        <!-- Form Pemesanan / Reservasi (3.h) -->
-                        <div class="lg:w-1/2">
-                            <h3 class="text-2xl font-semibold mb-4 dark:text-gray-100">Formulir Reservasi</h3>
-                            <form id="reservation-form" class="space-y-4">
-                                <input type="text" placeholder="Nama Lengkap" required class="form-input">
-                                <input type="email" placeholder="Email Aktif" required class="form-input">
-                                <input type="number" placeholder="Jumlah Pengunjung" required class="form-input">
-                                <input type="date" required class="form-input">
-                                <textarea placeholder="Pesan Khusus (Opsional)" class="form-input h-24"></textarea>
-                                <button type="submit" class="btn-primary w-full">Konfirmasi Reservasi</button>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3.e: Event & Kegiatan Lokal -->
-                <section id="events" class="mb-20 animate-on-scroll">
-                    <h2 class="section-title">Event & Kegiatan Lokal</h2>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-xl">
-                            <h3 class="text-xl font-semibold mb-2 dark:text-accent">Festival Anggur Veneto</h3>
-                            <p class="text-sm dark:text-gray-400 mb-2">Tanggal: 15-20 Oktober 2026</p>
-                            <p class="dark:text-gray-300">Nikmati koleksi anggur terbaik dari kawasan Veneto. Acara wajib bagi pecinta kuliner dan wine.</p>
-                        </div>
-                        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-xl">
-                            <h3 class="text-xl font-semibold mb-2 dark:text-accent">Pameran Desain Milan</h3>
-                            <p class="text-sm dark:text-gray-400 mb-2">Tanggal: 5-10 April 2026</p>
-                            <p class="dark:text-gray-300">Inovasi terbaru dalam mode, arsitektur, dan desain di ibukota mode dunia.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 2.g: Counter / Statistik (Bagian Tengah) -->
-                <section id="stats" class="mb-20 text-center py-16 bg-primary dark:bg-gray-900 rounded-xl animate-on-scroll">
-                    <h2 class="text-3xl font-bold mb-10 text-bg-light">Northern Italy dalam Angka</h2>
-                    <div class="grid grid-cols-3 gap-4 text-bg-light">
-                        <div>
-                            <p class="text-4xl font-extrabold text-accent" id="stat-1">0</p>
-                            <p class="mt-2 text-sm uppercase tracking-wider">Destinasi Populer</p>
-                        </div>
-                        <div>
-                            <p class="text-4xl font-extrabold text-accent" id="stat-2">0</p>
-                            <p class="mt-2 text-sm uppercase tracking-wider">Pengunjung Puas</p>
-                        </div>
-                        <div>
-                            <p class="text-4xl font-extrabold text-accent" id="stat-3">0</p>
-                            <p class="mt-2 text-sm uppercase tracking-wider">Tahun Beroperasi</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 2.h: Map Integration Placeholder -->
-                <section id="map" class="mb-20 animate-on-scroll">
-                    <h2 class="section-title">Lokasi Kami</h2>
-                    <div class="h-96 w-full rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700">
-                        <!-- Placeholder Iframe untuk Google Maps -->
-                        <iframe src="https://maps.google.com/maps?q=Milan,Italy&z=10&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <p class="mt-4 text-sm dark:text-gray-400 text-center">Jelajahi destinasi kami secara visual di peta interaktif.</p>
-                </section>
-
-                <!-- 1.f & 3.q: Contact Form & Form Saran -->
-                <section id="kontak" class="mb-20 animate-on-scroll">
-                    <h2 class="section-title">Hubungi Kami / Beri Penilaian</h2>
-                    <div class="max-w-3xl mx-auto bg-primary/5 dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-                        <form id="contact-form" class="space-y-4">
-                            <p class="text-lg font-medium mb-4">Tim kami siap membantu perjalanan Anda.</p>
-                            <input type="text" placeholder="Nama Anda" required class="form-input">
-                            <input type="email" placeholder="Email Anda" required class="form-input">
-                            <!-- 3.q: Penilaian/Saran -->
-                            <div class="space-y-2">
-                                <label class="block dark:text-gray-300">Beri Penilaian (1-5 Bintang):</label>
-                                <select class="form-input" required>
-                                    <option>5 Bintang (Sangat Puas)</option>
-                                    <option>4 Bintang (Puas)</option>
-                                    <option>3 Bintang (Cukup)</option>
-                                    <option>2 Bintang (Kurang)</option>
-                                    <option>1 Bintang (Buruk)</option>
-                                </select>
-                            </div>
-                            <textarea placeholder="Saran / Pertanyaan Anda" required class="form-input h-32"></textarea>
-                            <button type="submit" class="btn-primary w-full">Kirim Pesan & Penilaian</button>
-                        </form>
-                    </div>
-                </section>
-
-            </div>
-
-            <!-- 1.d: Sidebar (Tampilan Desktop) -->
-            <div class="lg:w-1/4 mt-12 lg:mt-0">
-                <aside class="space-y-10">
-                    <!-- 3.g: Blog/Artikel Wisata Mini -->
-                    <div id="blog" class="p-6 bg-bg-light dark:bg-gray-800 rounded-xl shadow-md border-t-4 border-accent">
-                        <h3 class="text-xl font-semibold mb-4 text-primary dark:text-accent">Artikel Terbaru</h3>
-                        <ul class="space-y-4">
-                            <li><a href="#" class="sidebar-article-link">5 Danau Tersembunyi di Lombardia</a></li>
-                            <li><a href="#" class="sidebar-article-link">Panduan Kuliner Verona</a></li>
-                            <li><a href="#" class="sidebar-article-link">Sejarah Singkat Dolomiti</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- 3.f & 3.k: Ulasan & Testimoni Pengunjung Otomatis (Carousel Simulation) -->
-                    <div class="p-6 bg-primary dark:bg-gray-900 rounded-xl shadow-md">
-                        <h3 class="text-xl font-semibold mb-4 text-bg-light">Testimoni Terbaik</h3>
-                        <div id="testimonial-carousel" class="relative overflow-hidden h-32">
-                            <!-- Testimoni akan dimasukkan oleh JS -->
-                            <p class="text-text-light italic" id="carousel-text">"Pemandangannya sungguh menakjubkan dan layanan yang diberikan sangat profesional."</p>
-                            <p class="text-accent mt-2 text-right font-medium" id="carousel-author">- Budi S. (Indonesia)</p>
-                        </div>
-                    </div>
-
-                    <!-- Tombol Cepat -->
-                    <div class="space-y-3">
-                        <button class="btn-sidebar-quick-link w-full">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l-2 2m-2-2v10a1 1 0 01-1 1h-3"></path></svg>
-                            Cek Jadwal
-                        </button>
-                        <button class="btn-sidebar-quick-link w-full">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Fasilitas
-                        </button>
-                    </div>
-
-                </aside>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- 1.c: Footer (Bagian Bawah Website) -->
-    <footer class="bg-primary dark:bg-black text-bg-light py-12">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 text-accent">Northern Italia</h4>
-                    <p class="text-sm">Eksplorasi destinasi premium dengan layanan terbaik.</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Navigasi</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#destinasi" class="footer-link">Destinasi</a></li>
-                        <li><a href="#reservasi" class="footer-link">Pemesanan</a></li>
-                        <li><a href="#kontak" class="footer-link">Kontak</a></li>
-                        <li><a href="#" class="footer-link">Kebijakan Privasi</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Media Sosial</h4>
-                    <div class="flex space-x-3">
-                        <span class="social-icon">F</span>
-                        <span class="social-icon">I</span>
-                        <span class="social-icon">X</span>
-                        <span class="social-icon">Y</span>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Kontak Cepat</h4>
-                    <p class="text-sm">Email: info@northernitalia.com</p>
-                    <p class="text-sm">Telp: +39 012 345 6789</p>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 pt-6 text-center text-sm">
-                &copy; 2024 Northern Italia. All Rights Reserved. Desain oleh Ahli Pemrograman.
-            </div>
-        </div>
-    </footer>
-
-    <!-- 2.c & 3.o: Chatbot / Live Chat Floating Button -->
-    <button id="chat-toggle" class="fixed bottom-6 right-6 p-4 rounded-full bg-accent text-bg-light shadow-xl hover:bg-yellow-700 transition duration-300 z-50">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-    </button>
-
-    <!-- Chatbot Modal -->
-    <div id="chat-modal" class="fixed bottom-20 right-6 w-80 h-96 bg-bg-light dark:bg-gray-800 rounded-xl shadow-2xl z-50 hidden flex-col overflow-hidden">
-        <div class="bg-primary text-bg-light p-4 flex justify-between items-center rounded-t-xl">
-            <h5 class="font-semibold">Panduan Wisata AI</h5>
-            <button id="close-chat" class="text-bg-light hover:text-accent">&times;</button>
-        </div>
-        <div id="chat-body" class="flex-grow p-4 overflow-y-auto space-y-3">
-            <div class="chat-message bot">Halo! Saya GuideAI. Ada yang bisa saya bantu tentang Northern Italy?</div>
-        </div>
-        <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex">
-            <input type="text" id="chat-input" placeholder="Tanyakan sesuatu..." class="flex-grow py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-l-lg text-sm dark:bg-bg-dark focus:outline-none">
-            <button id="chat-send" class="bg-accent text-bg-light p-2 rounded-r-lg hover:bg-yellow-700 transition duration-300">Kirim</button>
-        </div>
+   </header><!-- Hero Section -->
+   <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-24">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+     <div class="slide-up" style="animation-delay: 0.2s;">
+      <p id="hero-greeting" class="text-xl text-[var(--text-secondary)] mb-2">Halo, Saya</p>
+      <h1 id="hero-name" class="text-5xl md:text-6xl font-bold gradient-text mb-4">Tiara Azzahra</h1>
+      <p id="hero-description" class="text-lg text-[var(--text-secondary)] mb-8 leading-relaxed">Seorang siswa yang adaptif dan solutif, berfokus pada pengembangan keterampilan interpersonal untuk persiapan masa depan.</p>
+      <div class="flex flex-wrap gap-4"><a href="#portfolio" id="cta-portfolio" class="btn-primary">Lihat Portofolio</a> <a href="#contact" id="cta-contact" class="btn-secondary">Hubungi Saya</a>
+      </div>
+     </div>
+     <div class="slide-up flex justify-center" style="animation-delay: 0.4s;">
+      <div class="profile-img-frame">
+       <div class="profile-img-inner"><img src="https://iili.io/ftpReRI.jpg" alt="Tiara Azzahra" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a1333, #0f0a1e)'; this.alt='Foto tidak tersedia';">
+       </div>
+      </div>
+     </div>
     </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+     <h2 id="about-title" class="section-title gradient-text slide-up">Tentang Saya</h2>
+     <p class="section-subtitle slide-up" style="animation-delay: 0.1s;">Kenali lebih dalam tentang perjalanan dan visi saya</p>
+     <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.2s;">
+       <h3 class="text-2xl font-semibold mb-4 text-[var(--accent-gold)]">Latar Belakang</h3>
+       <p class="text-[var(--text-secondary)] leading-relaxed">Saya Tiara, seorang siswi SMAN 1 Subang yang lahir di Jakarta pada 06 Juni 2008. Sebagai individu antusias dalam mengasah bakat di bidang komunikasi dan hubungan antarmanusia. Melalui keterlibatan aktif dalam berbagai kegiatan sekolah, saya berkomitmen untuk terus mengembangkan kemampuan kolaborasi dan berpikir kritis demi memberikan kontribusi positif bagi lingkungan sekitar.</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.3s;">
+       <h3 class="text-2xl font-semibold mb-4 text-[var(--accent-gold)]">Minat &amp; Tujuan</h3>
+       <p class="text-[var(--text-secondary)] leading-relaxed">Saya sangat tertarik pada eksplorasi potensi diri dan pengembangan keterampilan interpersonal. Tujuan saya adalah memanfaatkan setiap kesempatan belajar untuk memperluas wawasan, baik di bidang akademik maupun non-akademik. Saya bertekad untuk menjalin kolaborasi yang produktif dengan berbagai pihak guna mengasah kreativitas dan membangun fondasi karier yang solid di masa depan.</p>
+      </div>
+     </div><!-- Education Timeline -->
+     <div class="mt-16 slide-up" style="animation-delay: 0.4s;">
+      <h3 class="text-3xl font-semibold mb-8 text-center gradient-text">Pendidikan</h3>
+      <div class="glass-effect rounded-3xl p-8 max-w-3xl mx-auto">
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SMAN 1 Subang</h4>
+        <p class="text-[var(--text-secondary)]">2023 - Sekarang</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SMP 1 Subang</h4>
+        <p class="text-[var(--text-secondary)]">2020 - 2023</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">SD Cigadog</h4>
+        <p class="text-[var(--text-secondary)]">2014 - 2020</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">TK Kartika X-8</h4>
+        <p class="text-[var(--text-secondary)]">2012 - 2014</p>
+       </div>
+       <div class="timeline-item">
+        <h4 class="font-semibold text-lg text-[var(--accent-gold)]">PAUD Bungur 1</h4>
+        <p class="text-[var(--text-secondary)]">2011 - 2012</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills Section -->
+   <section id="skills" class="py-24 px-6 bg-[var(--secondary-bg)]">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Keahlian</h2><!-- Skills Tab Navigation -->
+     <div class="flex justify-center gap-4 mb-12 slide-up" style="animation-delay: 0.2s;"><button id="soft-skills-tab" class="skills-tab-btn active px-8 py-3 rounded-full font-semibold transition-all"> Soft Skills </button> <button id="hard-skills-tab" class="skills-tab-btn px-8 py-3 rounded-full font-semibold transition-all"> Hard Skills </button>
+     </div><!-- Soft Skills Content -->
+     <div id="soft-skills-content" class="skills-content">
+      <div class="grid md:grid-cols-2 gap-8">
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.3s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">💬</span>
+         <h3 class="text-xl font-semibold">Komunikasi</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Kemampuan menyampaikan ide dengan jelas dan persuasif</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 90%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">90%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🤝</span>
+         <h3 class="text-xl font-semibold">Kerja Tim</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Kolaborasi efektif dalam mencapai tujuan bersama</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 85%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">85%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.5s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">💡</span>
+         <h3 class="text-xl font-semibold">Kreativitas</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Berpikir inovatif dan mencari solusi kreatif</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 88%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">88%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.6s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">⏰</span>
+         <h3 class="text-xl font-semibold">Manajemen Waktu</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Mengatur prioritas dan deadline dengan efisien</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 82%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">82%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.7s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎯</span>
+         <h3 class="text-xl font-semibold">Kepemimpinan</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Memimpin dan menginspirasi tim dengan visi jelas</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 80%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">80%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.8s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🧠</span>
+         <h3 class="text-xl font-semibold">Problem Solving</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Menganalisis masalah dan menemukan solusi tepat</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 86%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">86%</p>
+       </div>
+      </div>
+     </div><!-- Hard Skills Content -->
+     <div id="hard-skills-content" class="skills-content hidden">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.3s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📊</span>
+         <h3 class="text-xl font-semibold">Microsoft Office</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Word, Excel, PowerPoint</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 85%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">85%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">🎨</span>
+         <h3 class="text-xl font-semibold">Design Tools</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Canva, Adobe Photoshop</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 78%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">78%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.5s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📝</span>
+         <h3 class="text-xl font-semibold">Content Writing</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Artikel, Essay, Puisi</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 82%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">82%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.6s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📱</span>
+         <h3 class="text-xl font-semibold">Social Media Management</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Instagram, TikTok, LinkedIn</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 80%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">80%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.7s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📄</span>
+         <h3 class="text-xl font-semibold">Pengolahan Dokumen</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Manajemen &amp; format dokumen digital</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 87%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">87%</p>
+       </div>
+       <div class="glass-effect rounded-2xl p-6 hover-lift slide-up" style="animation-delay: 0.8s;">
+        <div class="flex items-center gap-3 mb-3"><span class="text-3xl">📚</span>
+         <h3 class="text-xl font-semibold">Research &amp; Analysis</h3>
+        </div>
+        <p class="text-sm text-[var(--text-secondary)] mb-3">Riset akademik &amp; analisis data</p>
+        <div class="skill-bar">
+         <div class="skill-progress" style="width: 79%;"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-[var(--accent-gold)]">79%</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Portfolio/Achievements Section -->
+   <section id="portfolio" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Pengalaman &amp; Prestasi</h2>
+     <div class="grid md:grid-cols-3 gap-8">
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.2s;">
+       <div class="text-5xl mb-4">
+        🏆
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara 2 Cerdas Cermat</h3>
+       <p class="text-[var(--text-secondary)]">Tingkat Sekolah Dasar</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.3s;">
+       <div class="text-5xl mb-4">
+        🥇
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara 1 Lomba Tingkat II Penggalang</h3>
+       <p class="text-[var(--text-secondary)]">SMP - Pramuka</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.4s;">
+       <div class="text-5xl mb-4">
+        👑
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Juara Umum Pramuka Siaga</h3>
+       <p class="text-[var(--text-secondary)]">Kompetisi Pramuka</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.5s;">
+       <div class="text-5xl mb-4">
+        📋
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Sekretaris Organisasi Pramuka</h3>
+       <p class="text-[var(--text-secondary)]">Kepemimpinan &amp; Administrasi</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.6s;">
+       <div class="text-5xl mb-4">
+        📝
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Lomba Puisi</h3>
+       <p class="text-[var(--text-secondary)]">Tingkat Sekolah Dasar</p>
+      </div>
+      <div class="glass-effect rounded-3xl p-8 hover-lift slide-up" style="animation-delay: 0.7s;">
+       <div class="text-5xl mb-4">
+        🎓
+       </div>
+       <h3 class="text-xl font-semibold mb-2 text-[var(--accent-gold)]">Siswa Eligible</h3>
+       <p class="text-[var(--text-secondary)]">Program Keunggulan Akademik</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-24 px-6 bg-[var(--secondary-bg)]">
+    <div class="max-w-3xl mx-auto">
+     <h2 class="section-title gradient-text slide-up">Hubungi Saya</h2>
+     <p class="section-subtitle slide-up" style="animation-delay: 0.1s;">Mari terhubung dan berkolaborasi</p>
+     <div class="glass-effect rounded-3xl p-8 slide-up" style="animation-delay: 0.2s;">
+      <form id="contact-form" class="space-y-6">
+       <div><label for="name" class="block text-sm font-medium mb-2">Nama</label> <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all">
+       </div>
+       <div><label for="email" class="block text-sm font-medium mb-2">Email</label> <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all">
+       </div>
+       <div><label for="message" class="block text-sm font-medium mb-2">Pesan</label> <textarea id="message" required rows="5" class="w-full px-4 py-3 rounded-xl bg-[var(--primary-bg)] border border-[var(--accent-gold)] border-opacity-30 focus:border-opacity-100 outline-none transition-all resize-none"></textarea>
+       </div><button type="submit" class="btn-primary w-full" id="submit-btn">Kirim Pesan</button>
+      </form>
+      <div class="mt-8 pt-8 border-t border-[var(--accent-gold)] border-opacity-30">
+       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center"><a href="mailto:tiearazzahra@gmail.com" class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors"> <span class="text-2xl">📧</span> <span>tiearazzahra@gmail.com</span> </a> <a href="https://instagram.com/tiaraisza" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors"> <span>@tiaraisza</span>
+         <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+         </svg></a>
+       </div>
+      </div>
+     </div>
+     <div id="success-message" class="hidden mt-6 p-4 bg-green-500 bg-opacity-20 border border-green-500 rounded-xl text-center">
+      <p>✅ Pesan Anda berhasil terkirim!</p>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-6 border-t border-[var(--accent-gold)] border-opacity-20">
+    <div class="max-w-7xl mx-auto text-center">
+     <p id="footer-copyright" class="text-[var(--text-secondary)]">©️ 2026 - Tiara Azzahra Dianto. All Rights Reserved.</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      site_name: "Tiara Azzahra",
+      hero_greeting: "Halo, Saya",
+      hero_name: "Tiara Azzahra",
+      hero_description: "Seorang siswa yang adaptif dan solutif, berfokus pada pengembangan keterampilan interpersonal untuk persiapan masa depan.",
+      cta_portfolio: "Lihat Portofolio",
+      cta_contact: "Hubungi Saya",
+      about_title: "Tentang Saya",
+      footer_copyright: "©️ 2026 - Tiara Azzahra Dianto. All Rights Reserved.",
+      primary_bg: "#fef6f0",
+      secondary_bg: "#ffffff",
+      accent_gold: "#e67e50",
+      text_primary: "#2d3436",
+      text_secondary: "#636e72"
+    };
 
+    async function onConfigChange(config) {
+      document.getElementById('site-name').textContent = config.site_name || defaultConfig.site_name;
+      document.getElementById('hero-greeting').textContent = config.hero_greeting || defaultConfig.hero_greeting;
+      document.getElementById('hero-name').textContent = config.hero_name || defaultConfig.hero_name;
+      document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+      document.getElementById('cta-portfolio').textContent = config.cta_portfolio || defaultConfig.cta_portfolio;
+      document.getElementById('cta-contact').textContent = config.cta_contact || defaultConfig.cta_contact;
+      document.getElementById('about-title').textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById('footer-copyright').textContent = config.footer_copyright || defaultConfig.footer_copyright;
 
-    <!-- JavaScript untuk Fungsionalitas Modern -->
-    <script>
-        // Variabel global untuk status bahasa
-        let currentLang = 'ID';
+      const root = document.documentElement;
+      root.style.setProperty('--primary-bg', config.primary_bg || defaultConfig.primary_bg);
+      root.style.setProperty('--secondary-bg', config.secondary_bg || defaultConfig.secondary_bg);
+      root.style.setProperty('--accent-gold', config.accent_gold || defaultConfig.accent_gold);
+      root.style.setProperty('--text-primary', config.text_primary || defaultConfig.text_primary);
+      root.style.setProperty('--text-secondary', config.text_secondary || defaultConfig.text_secondary);
+    }
 
-        // --- 2.a: Dark / Light Mode Toggle Logic ---
-        const toggleDarkMode = () => {
-            const body = document.body;
-            const isDark = body.classList.toggle('dark');
-            body.classList.toggle('light', !isDark);
-            
-            // Simpan preferensi pengguna di localStorage
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
-            // Update ikon
-            document.getElementById('sun-icon').classList.toggle('hidden', isDark);
-            document.getElementById('moon-icon').classList.toggle('hidden', !isDark);
-        };
-
-        // Muat preferensi saat startup
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.body.classList.add('dark');
-                document.body.classList.remove('light');
-                document.getElementById('sun-icon').classList.remove('hidden');
-                document.getElementById('moon-icon').classList.add('hidden');
-            } else {
-                document.body.classList.add('light');
-                document.body.classList.remove('dark');
-                document.getElementById('sun-icon').classList.add('hidden');
-                document.getElementById('moon-icon').classList.remove('hidden');
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.primary_bg || defaultConfig.primary_bg,
+            set: (value) => {
+              config.primary_bg = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_bg: value });
+              }
             }
+          },
+          {
+            get: () => config.secondary_bg || defaultConfig.secondary_bg,
+            set: (value) => {
+              config.secondary_bg = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_bg: value });
+              }
+            }
+          },
+          {
+            get: () => config.accent_gold || defaultConfig.accent_gold,
+            set: (value) => {
+              config.accent_gold = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ accent_gold: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_primary || defaultConfig.text_primary,
+            set: (value) => {
+              config.text_primary = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_primary: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_secondary || defaultConfig.text_secondary,
+            set: (value) => {
+              config.text_secondary = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_secondary: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
 
-            document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
-            initializeInteractions();
-            animateCounters();
-            setupScrollAnimation();
-            startTestimonialCarousel();
-        });
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["site_name", config.site_name || defaultConfig.site_name],
+        ["hero_greeting", config.hero_greeting || defaultConfig.hero_greeting],
+        ["hero_name", config.hero_name || defaultConfig.hero_name],
+        ["hero_description", config.hero_description || defaultConfig.hero_description],
+        ["cta_portfolio", config.cta_portfolio || defaultConfig.cta_portfolio],
+        ["cta_contact", config.cta_contact || defaultConfig.cta_contact],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["footer_copyright", config.footer_copyright || defaultConfig.footer_copyright]
+      ]);
+    }
 
-        // --- 1.d: Sidebar / Menu Mobile Logic ---
-        const initializeInteractions = () => {
-            const menuToggle = document.getElementById('menu-toggle');
-            const closeMenu = document.getElementById('close-menu');
-            const sidebar = document.getElementById('sidebar-menu');
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
 
-            menuToggle.addEventListener('click', () => sidebar.classList.add('active'));
-            closeMenu.addEventListener('click', () => sidebar.classList.remove('active'));
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
 
-            // Tutup sidebar saat link diklik (untuk navigasi)
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.addEventListener('click', () => sidebar.classList.remove('active'));
-            });
-        };
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Contact Form Handler
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-message');
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim...';
+      
+      setTimeout(() => {
+        successMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirim Pesan';
         
-        // --- 2.d: Language Switcher Logic (Simulasi) ---
-        document.getElementById('lang-switcher').addEventListener('click', () => {
-            currentLang = currentLang === 'ID' ? 'EN' : 'ID';
-            document.getElementById('lang-switcher').textContent = currentLang === 'ID' ? 'ID/EN' : 'EN/ID';
-            const message = currentLang === 'ID' 
-                ? 'Bahasa diubah ke Indonesia. (Konten simulasi)' 
-                : 'Language switched to English. (Simulated content)';
-            showMessageBox(message);
-        });
+        document.getElementById('contact-form').reset();
         
-        // --- Custom Modal/Message Box (Pengganti alert()) ---
-        const showMessageBox = (message) => {
-            console.log("Pesan Sistem: " + message);
-            // Dalam implementasi nyata, ini akan menampilkan modal/toast di UI.
-            // Untuk prototipe ini, kita gunakan console log dan placeholder.
-            alert(message); // Menggunakan alert sementara untuk demonstrasi fitur
-        };
+        setTimeout(() => {
+          successMsg.classList.add('hidden');
+        }, 5000);
+      }, 1000);
+    });
 
-        // --- 2.g: Counter / Statistik Animation ---
-        const animateCounter = (elementId, target) => {
-            const element = document.getElementById(elementId);
-            let count = 0;
-            const duration = 1500; // 1.5 detik
-            const step = target / (duration / 10); // Hitung langkah per 10ms
+    // Skills Tab Functionality
+    const softSkillsTab = document.getElementById('soft-skills-tab');
+    const hardSkillsTab = document.getElementById('hard-skills-tab');
+    const softSkillsContent = document.getElementById('soft-skills-content');
+    const hardSkillsContent = document.getElementById('hard-skills-content');
 
-            const timer = setInterval(() => {
-                count += step;
-                if (count >= target) {
-                    clearInterval(timer);
-                    count = target;
-                }
-                element.textContent = Math.floor(count).toLocaleString('id-ID');
-            }, 10);
-        };
+    softSkillsTab.addEventListener('click', function() {
+      softSkillsTab.classList.add('active');
+      hardSkillsTab.classList.remove('active');
+      softSkillsContent.classList.remove('hidden');
+      hardSkillsContent.classList.add('hidden');
+    });
 
-        const animateCounters = () => {
-            animateCounter('stat-1', 45); // Destinasi Populer
-            animateCounter('stat-2', 12500); // Pengunjung Puas
-            animateCounter('stat-3', 15); // Tahun Beroperasi
-        };
+    hardSkillsTab.addEventListener('click', function() {
+      hardSkillsTab.classList.add('active');
+      softSkillsTab.classList.remove('active');
+      hardSkillsContent.classList.remove('hidden');
+      softSkillsContent.classList.add('hidden');
+    });
 
-        // --- 3.k: Testimonial Carousel Simulation ---
-        const testimonials = [
-            { text: "Pemandangannya sungguh menakjubkan dan layanan yang diberikan sangat profesional.", author: "- Budi S. (Indonesia)" },
-            { text: "A truly unforgettable experience. The Dolomites were breathtaking.", author: "- Jane D. (USA)" },
-            { text: "Il Duomo di Milano è magnifico! Torneremo presto.", author: "- Giovanni R. (Italia)" }
-        ];
+    // Intersection Observer for Animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-        let currentTestimonial = 0;
-        const startTestimonialCarousel = () => {
-            const textElement = document.getElementById('carousel-text');
-            const authorElement = document.getElementById('carousel-author');
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
 
-            setInterval(() => {
-                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-                const t = testimonials[currentTestimonial];
+    document.querySelectorAll('.slide-up').forEach(el => {
+      observer.observe(el);
+    });
 
-                // Animasi fade out
-                textElement.style.opacity = '0';
-                authorElement.style.opacity = '0';
 
-                setTimeout(() => {
-                    textElement.textContent = t.text;
-                    authorElement.textContent = t.author;
-                    // Animasi fade in
-                    textElement.style.opacity = '1';
-                    authorElement.style.opacity = '1';
-                }, 500); // Tunggu setengah detik untuk fade out
-            }, 5000); // Ganti setiap 5 detik
-        };
-
-        // --- 2.b: Scroll Animation / Parallax Simulation (Intersection Observer) ---
-        const setupScrollAnimation = () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-slide-up');
-                        entry.target.style.opacity = '1';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
-            });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(element => {
-                element.style.opacity = '0'; // Sembunyikan secara default
-                observer.observe(element);
-            });
-        };
-
-        // --- 2.c & 3.o: Chatbot / Live Chat Logic ---
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatModal = document.getElementById('chat-modal');
-        const closeChat = document.getElementById('close-chat');
-        const chatBody = document.getElementById('chat-body');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        chatToggle.addEventListener('click', () => chatModal.classList.toggle('hidden'));
-        closeChat.addEventListener('click', () => chatModal.classList.add('hidden'));
-        chatSend.addEventListener('click', () => handleChat());
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleChat();
-        });
-
-        const handleChat = () => {
-            const message = chatInput.value.trim();
-            if (message === '') return;
-
-            // Tampilkan pesan pengguna
-            appendMessage(message, 'user');
-            chatInput.value = '';
-
-            // Simulasi balasan Chatbot
-            setTimeout(() => {
-                let botResponse = 'Saya belum mengerti pertanyaan Anda. Coba tanyakan tentang "tiket" atau "destinasi".';
-                const lowerMsg = message.toLowerCase();
-
-                if (lowerMsg.includes('tiket') || lowerMsg.includes('harga')) {
-                    botResponse = 'Informasi tiket dapat Anda temukan di bagian Reservasi. Tiket dewasa mulai dari €25.';
-                } else if (lowerMsg.includes('destinasi') || lowerMsg.includes('tempat')) {
-                    botResponse = 'Kami merekomendasikan Dolomiti, Milan, dan Venesia. Ingin detail salah satunya?';
-                } else if (lowerMsg.includes('cuaca')) {
-                    botResponse = document.getElementById('current-weather').textContent;
-                } else if (lowerMsg.includes('terima kasih')) {
-                    botResponse = 'Sama-sama! Senang melayani Anda.';
-                }
-                
-                appendMessage(botResponse, 'bot');
-            }, 1000);
-        };
-
-        const appendMessage = (text, sender) => {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('chat-message', sender, 'p-3', 'rounded-lg', 'max-w-[80%]', 'shadow-sm');
-            msgDiv.textContent = text;
-
-            if (sender === 'user') {
-                msgDiv.classList.add('bg-accent/80', 'text-bg-light', 'ml-auto');
-            } else {
-                msgDiv.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-text-dark', 'dark:text-text-light', 'mr-auto');
-            }
-            chatBody.appendChild(msgDiv);
-            chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll
-        };
-        
-        // --- 3.i: Virtual Tour Placeholder Function ---
-        const openVirtualTour = () => {
-            showMessageBox("Memuat Virtual Tour 360°... (Ini adalah simulasi, akan diarahkan ke halaman virtual tour di implementasi penuh.)");
-        };
-
-        // --- Gaya untuk elemen-elemen berulang (didefinisikan dalam JS untuk kebersihan) ---
-        // Catatan: Dalam produksi, ini lebih baik diintegrasikan ke dalam konfigurasi tailwind.config
-
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `
-            .nav-link {
-                @apply hover:text-accent dark:hover:text-accent font-medium transition duration-300 p-2 rounded-lg;
-            }
-            .btn-primary {
-                @apply bg-accent text-bg-light font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-700 transition duration-300 flex items-center justify-center mx-auto lg:mx-0;
-            }
-            .btn-secondary {
-                @apply border border-accent text-accent font-bold py-3 px-8 rounded-full shadow-md hover:bg-accent hover:text-bg-light transition duration-300;
-            }
-            .btn-sidebar-quick-link {
-                @apply bg-primary/10 dark:bg-gray-700 text-primary dark:text-gray-300 font-medium py-3 px-4 rounded-xl hover:bg-accent/20 dark:hover:bg-accent/40 transition duration-300 flex items-center justify-center text-sm;
-            }
-            .section-title {
-                @apply text-3xl sm:text-4xl font-extrabold mb-4 border-b-2 border-accent inline-block pb-1 text-primary dark:text-bg-light;
-            }
-            .form-input {
-                @apply w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent dark:bg-gray-700 dark:text-text-light transition duration-300;
-            }
-            .gallery-img {
-                @apply object-cover rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-500 cursor-pointer;
-            }
-            .share-icon {
-                @apply w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-sm font-bold text-primary dark:text-accent hover:bg-accent hover:text-bg-light cursor-pointer transition;
-            }
-            .footer-link {
-                @apply hover:text-accent transition duration-300;
-            }
-            .social-icon {
-                @apply w-8 h-8 flex items-center justify-center rounded-full bg-accent text-primary dark:text-bg-light hover:scale-110 transition duration-300 font-bold;
-            }
-            .sidebar-article-link {
-                @apply text-sm text-primary dark:text-gray-300 hover:text-accent transition duration-300 block font-medium;
-            }
-            
-        `;
-        document.head.appendChild(styleSheet);
-    </script>
-</body>
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c8b237d0082b907',t:'MTc3MDIxODI4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
